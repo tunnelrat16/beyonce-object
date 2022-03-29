@@ -96,58 +96,58 @@ function printAllMovies() {
 
 // 3. Return an array of all Beyonce's hit song titles
 function hitSongTitles() {
-    return beyonceHash.hits.map(beyonce => beyonce.title)
+    return beyonceHash.hits.map(hit => hit.title)
 }
 
 // 4. Return an array of all Beyonce's fierceness ratings
 function allFiercenessRatings() {
-    return beyonceHash.hits.map(beyonce => beyonce.fierceness)
+    return beyonceHash.hits.map(hit => hit.fierceness)
 }
 
 // 5. Return all the songs where Beyonce is wearing a bodysuit or a bodysuit is part of the video theme
 function songsWithBodySuits() {
-    return beyonceHash.hits.filter(beyonce => beyonce.signature_look.includes("bodysuit") || beyonce.video_theme.includes("body suit"))
+    return beyonceHash.hits.filter(hit => hit.signature_look.includes("bodysuit") || hit.video_theme.includes("bodysuit"))
 }
 
 // 6. Return an array with all of the songs where Beyonce's fierceness is greater than or equal to a given number
-function getSongsByFiercenessGTE(num) {
-    return beyonceHash.hits.filter(beyonce => beyonce.fierceness > num)
+function getSongsByFiercenessGTE(fierceNum) {
+    return beyonceHash.hits.filter(hit => hit.fierceness > fierceNum)
 }
 
 // 7. Return an array with all of the movies Beyonce made after or during a given year
 function getMoviesByDateGTE(year) {
-    return beyonceHash.movies.filter(beyonce => beyonce.year >= year)
+    return beyonceHash.movies.filter(movie => movie.year >= year)
 }
 
 // 8. Return all hit songs where Beyonce was in a group
 function groupHits() {
-    return beyonceHash.hits.filter(beyonce => beyonce.group === true)
+    return beyonceHash.hits.filter(hit => hit.group === true)
 }
 
 // 9. Return a hit song where Beyonce's hair is blonde
 function findBlondeHit() {
-    return beyonceHash.hits.find(beyonce => beyonce.hair.includes("blonde"))
+    return beyonceHash.hits.find(hit => hit.hair.includes("blonde"))
 }
 
 // 10. Return the hit song "Sorry"
 function sorry() {
-    return beyonceHash.hits.find(beyonce => beyonce.title === "Sorry")
+    return beyonceHash.hits.find(hit => hit.title === "Sorry")
 }
 
 // 11. Return a given song
 function getSong(title) {
-    return beyonceHash.hits.find(beyonce => beyonce.title === title)
+    return beyonceHash.hits.find(hit => hit.title === title)
 }
 
 // 12. Return all hit songs where Beyonce's fierceness rating is 10
 function fiercestHits() {
-    return beyonceHash.hits.filter(beyonce => beyonce.fierceness = 10)
+    return beyonceHash.hits.filter(hit => hit.fierceness === 10)
 }
 
 // 13. Return the sum of Beyonce's fierceness value for all of her hit songs
 function hitFiercenessSum() {
     return beyonceHash.hits
-        .map(beyonce => beyonce.fierceness)
+        .map(hit => hit.fierceness)
         .reduce((a, b) => a + b, 0)
 }
 
@@ -159,7 +159,7 @@ function hitFiercenessAverage() {
 // 15. Return the sum of Beyonce's rating value for all of her movies
 function ratingSum() {
     return beyonceHash.movies
-        .map(beyonce => beyonce.rating)
+        .map(movie => movie.rating)
         .reduce((a, b) => a + b, 0)
 }
 
@@ -171,18 +171,14 @@ function ratingAverage() {
 // 17. Return the sum of the total number of dancers in all of the hit song videos
 function hitDancerSum() {
     return beyonceHash.hits
-        .map(beyonce => beyonce.dancers)
+        .map(hit => hit.dancers)
         .reduce((a, b) => a + b, 0)
 }
 
 // 18. Return an array of Beyonce's hairstyles without repeats
 function uniqueHairstyles() {
-    const hairStyles = [];
-    beyonceHash.hits.forEach(beyonce => {
-        hairStyles.push(...beyonce.hair);
-        let uniqueHair = [...new Set(hairStyles)]
-        return console.log(uniqueHair);
-    });
+    const hairStyles = beyonceHash.hits.flatMap(hit => hit.hair)
+    return [...new Set(hairStyles)]
 }
 
 // 19. Return an object where the properties are song names and the value is an object which contains that song's fierceness and the average fierceness for all songs
@@ -236,11 +232,24 @@ function hairStyleFrequency() {
     }, {})
 }
 
-//console.log(printAllSongs()) 
-//console.log(printAllMovies()) 
-//console.log(hitSongTitles()) 
-//console.log(allFiercenessRatings()) 
-//console.log(songsWithBodySuits()) 
+//console.log(printAllSongs())
+//console.log(printAllMovies())
+//console.log(hitSongTitles())
+//console.log(allFiercenessRatings())
+//console.log(songsWithBodySuits())
 //console.log(getSongsByFiercenessGTE(8))
 //console.log(getMoviesByDateGTE(2008))
-console.log(uniqueHairstyles())
+//console.log(groupHits())
+//console.log(findBlondeHit())
+//console.log(sorry())
+//console.log(getSong("Bootylicious"))
+//console.log(fiercestHits())
+//console.log(hitFiercenessSum())
+//console.log(hitFiercenessAverage())
+//console.log(ratingSum())
+//console.log(ratingAverage())
+//console.log(hitDancerSum())
+//console.log(uniqueHairstyles())
+//console.log(songFiercenessByName())
+//console.log(movieRatingsByName())
+//console.log(hairStyleFrequency())
