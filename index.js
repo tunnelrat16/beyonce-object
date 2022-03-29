@@ -176,34 +176,65 @@ function hitDancerSum() {
 }
 
 // 18. Return an array of Beyonce's hairstyles without repeats
-function uniqueHairstyles() {}
+function uniqueHairstyles() {
+    const hairStyles = [];
+    beyonceHash.hits.forEach(beyonce => {
+        hairStyles.push(...beyonce.hair);
+        let uniqueHair = [...new Set(hairStyles)]
+        return console.log(uniqueHair);
+    });
+}
 
 // 19. Return an object where the properties are song names and the value is an object which contains that song's fierceness and the average fierceness for all songs
 function songFiercenessByName() {
 
     return beyonceHash.hits
-        .map(hit => {
+        .map(songs => {
             return {
-                title: hit.title,
-                fierceness: hit.fierceness,
+                title: songs.title,
+                fierceness: songs.fierceness,
                 average_fierceness: hitFiercenessAverage(),
             }
         })
-        .reduce((songsByName, hit) => {
+        .reduce((songsByName, songs) => {
             const fierceness = {
                 ...songsByName,
-                [hit.title]: hit
+                [songs.title]: songs
             }
-            delete hit.title;
+            delete songs.title;
             return fierceness
         }, {})
 }
 
 // 20. Return an object where the properties are movie names and the value is an object which contains that movie's rating and the average rating for all movies
-function movieRatingsByName() {}
+function movieRatingsByName() {
+    return beyonceHash.movies
+        .map(film => {
+            return {
+                title: film.title,
+                rating: film.rating,
+                average_rating: ratingAverage(),
+            }
+        })
+        .reduce((filmsByName, film) => {
+            const rating = {
+                ...filmsByName,
+                [film.title]: film
+            }
+            delete film.title;
+            return rating
+        }, {})
+}
 
 // 21. Return an object with Beyonce's hairstyles as the keys and a tally of each hairstyle, eg. `{ "blonde": 3, ... }`
-function hairStyleFrequency() {}
+function hairStyleFrequency() {
+    return uniqueHairstyles().reduce((hairObject, hair) => {
+        return {
+            ...hairObject,
+            [hair]: beyonceHash.hits.map(hit => hit.hair).flat().filter(hairstyle => hairstyle === hair).length,
+        }
+    }, {})
+}
 
 //console.log(printAllSongs()) 
 //console.log(printAllMovies()) 
@@ -211,4 +242,5 @@ function hairStyleFrequency() {}
 //console.log(allFiercenessRatings()) 
 //console.log(songsWithBodySuits()) 
 //console.log(getSongsByFiercenessGTE(8))
-console.log(getMoviesByDateGTE(2008))
+//console.log(getMoviesByDateGTE(2008))
+console.log(uniqueHairstyles())
